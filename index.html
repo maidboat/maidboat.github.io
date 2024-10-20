@@ -3,34 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BoobBot - Bot NSFW original de Discord</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta property="og:title" content="Add Maid To Your Discord Server">
+    <meta property="og:description" content="Want NSFW content totally free, no transactions, no limitations, Maid is the solution, just add, run and enjoy!">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/1225205094182551604/1297473348606885951/image.png?ex=67160db8&is=6714bc38&hm=fce9343396e15c2aa54253f5741c4f7f8a2785bd40602e0489f650c852be05e3&=&format=webp&quality=lossless">
+    <meta property="og:url" content="https://maidboat.github.io">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#eec663">
+
+    <title>Maid Bot - Tu asistente virtual para Discord</title>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://media.discordapp.net/attachments/1225205094182551604/1297479313439850507/Ab1aZRAbtg2AAAAAElFTkSuQmCC.png?ex=67161346&is=6714c1c6&hm=c91820f06d5a14f28456bf68a93f4b2b314f3749be91e8a744816c54422f65b9&=&format=webp&quality=lossless">
+    <style>
+        :root {
+            --main-color: #eec663;
+            --dark-color: #2C2F33;
+            --light-color: #FFFFFF;
+            --background-color: #36393F;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--light-color);
+            overflow-x: hidden;
+        }
+        header {
+            background-color: var(--main-color);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        nav {
+            background-color: var(--dark-color);
+            padding: 0.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav ul li {
+            margin: 0.5rem 1rem;
+        }
+        nav ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: var(--main-color);
+        }
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 20px auto 60px;
+            background-color: var(--dark-color);
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        h1, h2, h3 {
+            font-family: 'Permanent Marker', cursive;
+            color: var(--main-color);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+        .btn {
+            display: inline-block;
+            background-color: var(--main-color);
+            color: var(--dark-color);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #e0cfa2;
+            transform: translateY(-2px);
+        }
+        .slogan {
+            font-family: 'Permanent Marker', cursive;
+            font-size: 2.5em;
+            text-align: center;
+            margin: 40px 0 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .bot-image-container {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+        .bot-image {
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 2;
+        }
+        .image-frame {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 4px solid var(--main-color);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.5);
+            animation: rotate 10s linear infinite, glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px rgba(218, 165, 32, 0.5); }
+            100% { box-shadow: 0 0 30px rgba(218, 165, 32, 0.8); }
+        }
+        .content-section {
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        .feature {
+            flex-basis: calc(33.333% - 20px);
+            padding: 20px;
+            background-color: rgba(218, 165, 32, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        .snowflake {
+            color: #fff;
+            font-size: 1em;
+            font-family: Arial;
+            text-shadow: 0 0 1px #000;
+            position: fixed;
+            top: -10%;
+            z-index: 9999;
+            user-select: none;
+            cursor: default;
+            animation-name: snowflakes-fall, snowflakes-shake;
+            animation-duration: 10s, 3s;
+            animation-timing-function: linear, ease-in-out;
+            animation-iteration-count: infinite, infinite;
+            animation-play-state: running, running;
+        }
+        @keyframes snowflakes-fall {
+            0% { top: -10%; }
+            100% { top: 100%; }
+        }
+        @keyframes snowflakes-shake {
+            0% { transform: translateX(0px); }
+            50% { transform: translateX(80px); }
+            100% { transform: translateX(0px); }
+        }
+        @media (max-width: 768px) {
+            .feature {
+                flex-basis: 100%;
+            }
+            .slogan {
+                font-size: 2em;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❅</div><div class="snowflake">❅</div>
+        <div class="snowflake">❆</div><div class="snowflake">❄</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❄</div><div class="snowflake">❅</div>
+        <div class="snowflake">❆</div><div class="snowflake">❄</div>
+    </div>
     <header>
-        <nav>
-            <div class="logo">BoobBot</div>
-            <ul>
-                <li><a href="index.html" class="active">INICIO</a></li>
-                <li><a href="#">COMANDOS</a></li>
-                <li><a href="#">ESTADO</a></li>
-                <li><a href="#">MÉTRICAS</a></li>
-            </ul>
-            <div class="icons">
-                <a href="#" class="icon">🔔</a>
-                <a href="#" class="icon">🌙</a>
-            </div>
-        </nav>
+        <h1>Maid Bot</h1>
     </header>
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="showPage('home')">Home</a></li>
+            <li><a href="#features" onclick="showPage('features')">Features</a></li>
+            <li><a href="#terms" onclick="showPage('terms')">Terms</a></li>
+            <li><a href="#privacy" onclick="showPage('privacy')">Privacy</a></li>
+        </ul>
+    </nav>
     <main>
-        <h1>Imágenes de la naturaleza. 🍑</h1>
-        <p>El bot NSFW original de Discord.<br>Sin tonterías, solo contenido de alta calidad.</p>
-        <button id="inviteBtn">¡Invitar ahora!</button>
+        <section id="home" class="content-section">
+            <div class="slogan">Add. Execute. Enjoy.</div>
+            <div class="bot-image-container">
+                <div class="image-frame"></div>
+                <img src="https://cdn.discordapp.com/attachments/1225205094182551604/1297473348606885951/image.png?ex=67160db8&is=6714bc38&hm=fce9343396e15c2aa54253f5741c4f7f8a2785bd40602e0489f650c852be05e3&" alt="Maid Bot" class="bot-image" />
+            </div>
+            <h2>Free real porn, hentai and more.</h2>
+            <p>It basically submits adult content from different categories. Here we do not exclude anyone and there is something for everyone.</p>
+            <a href="https://discord.com/oauth2/authorize?client_id=1112902541953470524" target="_blank" rel="noopener noreferrer" class="btn">ADD NOW!</a>
+        </section>
+        <section id="features" class="content-section" style="display: none;">
+            <h2>Maid Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3>Real Porn</h3>
+                    <p>Maid has millions of videos, images and GIFs of real porn. You can't possibly finish the content because it is updated daily.</p>
+                </div>
+                <div class="feature">
+                    <h3>Hentai</h3>
+                    <p>But the otaku are not forgotten either, Maid also has millions of hentai content, including videos. owo</p>
+                </div>
+                <div class="feature">
+                    <h3>Buttons</h3>
+                    <p>Tired of having to run commands all the time? With Maid that's over, press a simple button and discover all the wonderful and spicy content that awaits your little friend.</p>
+                </div>
+            </div>
+        </section>
+        <section id="terms" class="content-section" style="display: none;">
+            <h2>Terms of Service</h2>
+            <p>Welcome to Maid Bot. By using Maid Bot, you agree to be bound by the following terms and conditions. If you do not agree to any of these terms, please refrain from using the Bot.</p>
+            <ul>
+                <li>Use of the Bot: The purpose of Maid Bot is to display links to images, GIFS and videos from different Websites, through preset slash (/) commands. By using the Bot, you acknowledge that any actions taken using these commands are your sole responsibility.
+                    Liability: Maid Bot assumes no liability for any direct or indirect damage caused by the use of the Bot. Users are fully responsible for their interaction with the Bot and understand that the content displayed may be directed to an adult audience. It is recommended to use the Bot in an appropriate manner and to abide by the corresponding rules and regulations.
+                    Privacy: Maid Bot does not collect or store personal information about users. We do not share the servers on which the Bot is located, nor do we collect any data related to them. However, you should be aware that the NSFW Websites from which the content is sourced may have their own privacy policies.
+                    Intellectual Property: All intellectual property rights to the content shared by Maid Bot belong to the corresponding NSFW Websites. The Bot simply displays the links and content of images, GIFs and videos obtained from the designated NSFW Websites, and has no control over such content.
+                    Changes to Terms: We reserve the right to make changes to the Maid Bot terms and conditions at any time. We encourage you to regularly review these terms of service to be aware of any updates.
+                    </li>
+            </ul>
+            <p>​By using Maid Bot, you agree to abide by these terms of service. If you do not agree with any of them, please refrain from using the Bot. We appreciate your understanding and hope you enjoy! the content shared through Maid Bot.
+            </p>
+        </section>
+        <section id="privacy" class="content-section" style="display: none;">
+            <h2>Privacy Policy</h2>
+            <p>We appreciate your interest in Maid, a Discord Bot that shares content from NSFW Websites. This Privacy Policy describes how we collect, use and protect the personal information of users.
+                ​</p>
+            <ul>
+                <li>Information Collected: Maid does not collect or store any personal information from users. The Bot does not require users to provide additional data beyond the pre-set slash (/) commands to access available options.
+                    Use of Information: We do not use any personal information from users, as the Bot does not collect or store such information. We do not share the servers on which the Bot resides nor do we collect any data related to them.
+                    Intellectual Property Rights: All intellectual property rights to the content shared by the Bot belong to the relevant NSFW Websites. The Bot simply displays the links and content of images, gifs and videos from the designated NSFW Websites.
+                    Content and liability: The Maid Bot has no control over the content shared in the NSFW Websites and is not responsible for such content. Users should be aware that the content displayed may be intended for adults and should use the Bot in accordance with applicable rules and regulations.
+                    Limitation of Liability: The use of Maid Bot is at the users' own risk. We are not liable for any direct or indirect damages caused by the use of the Bot, including but not limited to loss of data, service interruptions or any other inconvenience.
+                    Changes to Terms: We reserve the right to make changes to the Maid Bot terms and conditions at any time. It is the responsibility of users to periodically review this Privacy Policy to be aware of any updates.
+                    Contacting Us: If you have any questions, questions or concerns regarding the operation of the Bot or the privacy policy, we invite you to join our support server and share your concerns there. We will be happy to help you in any way we can.
+                    Contacting Us: If you have any questions, questions or concerns regarding the operation of the Bot or the privacy policy, we invite you to join our support server and share your concerns there. We will be happy to help you in any way we can.</li>
+            </ul>
+            <p>Remember that this Privacy Policy applies specifically to the Maid Bot and not to other services or platforms used on Discord. We encourage you to read and understand the privacy policies applicable to Discord and other services you may use in conjunction with Maid Bot.
+                Thank you! for using Maid Bot and enjoying the content shared through it. - Alejandro & The Team.</p>
+        </section>
     </main>
     <footer>
-        <a href="terminos.html">Términos de Servicio</a>
-        <a href="privacidad.html">Política de Privacidad</a>
+        <p>&copy; 2024 Maid Bot. All rights reserved.</p>
     </footer>
-    <script src="script.js"></script>
+    <script>
+        function showPage(pageId) {
+            const pages = ['home', 'features', 'terms', 'privacy'];
+            pages.forEach(page => {
+                document.getElementById(page).style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+            
+            history.pushState(null, '', `#${pageId}`);
+        }
+
+        window.onpopstate = function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && ['home', 'features', 'terms', 'privacy'].includes(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        };
+
+        window.onload = function() {
+            const hash = window.location.hash.substring(1);
+            if (hash && ['home', 'features', 'terms', 'privacy'].includes(hash)) {
+                showPage(hash);
+            } else {
+                showPage('home');
+            }
+        };
+    </script>
 </body>
 </html>
