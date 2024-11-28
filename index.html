@@ -1,319 +1,1597 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Add Maid To Your Discord Server">
-    <meta property="og:description" content="Want NSFW content totally free, no transactions, no limitations?, Maid is the solution, just add, run and enjoy!">
-    <meta property="og:image" content="https://media.discordapp.net/attachments/1225205094182551604/1297473348606885951/image.png?ex=67160db8&is=6714bc38&hm=fce9343396e15c2aa54253f5741c4f7f8a2785bd40602e0489f650c852be05e3&=&format=webp&quality=lossless">
+    <meta name="description" content="Want NSFW content totally free, no transactions, no limitations? Maid is the solution, just add, run and enjoy!">
+    <meta property="og:title" content="Maid Bot - Free Adult Content">
+    <meta property="og:description" content="Want NSFW content totally free, no transactions, no limitations? Maid is the solution, just add, run and enjoy!">
+    <meta property="og:image" content="https://media.discordapp.net/attachments/945443023850971210/1311579398041763891/75fb94cba21fb0b4cb33fd18f2376322.png">
     <meta property="og:url" content="https://maidboat.github.io">
     <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Maid Bot - Free Adult Content">
+    <meta name="twitter:description" content="Want NSFW content totally free, no transactions, no limitations? Maid is the solution, just add, run and enjoy!">
+    <meta name="twitter:image" content="https://media.discordapp.net/attachments/945443023850971210/1311579398041763891/75fb94cba21fb0b4cb33fd18f2376322.png">
     <meta name="theme-color" content="#eec663">
 
-    <title>Maid Bot - FREE NSFW</title>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="https://media.discordapp.net/attachments/1225205094182551604/1297645635092090962/zn8DrK58ip8Kx24AAAAASUVORK5CYII.png?ex=6716ae2c&is=67155cac&hm=91c76c4711028dd00d7ef8caecc10872a3aad6698c4268a771dae5ecd5281fdf&=&format=webp&quality=lossless">
+    <title>Maid Bot - Free Adult Content</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
-        :root {
-            --main-color: #eec663;
-            --dark-color: #2C2F33;
-            --light-color: #FFFFFF;
-            --background-color: #36393F;
+        :root[data-theme="light"] {
+            --primary: #eec663;
+            --bg: #ffffff;
+            --text: #333333;
+            --secondary-bg: #f5f5f5;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #ffffff;
+            --search-bg: #f0f0f0;
         }
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
+
+        :root[data-theme="dark"] {
+            --primary: #ffd584;
+            --bg: #1a1a1a;
+            --text: #ffffff;
+            --secondary-bg: #2d2d2d;
+            --nav-bg: rgba(26, 26, 26, 0.95);
+            --card-bg: #2d2d2d;
+            --search-bg: #333333;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: var(--background-color);
-            color: var(--light-color);
-            overflow-x: hidden;
+            box-sizing: border-box;
         }
-        header {
-            background-color: var(--main-color);
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            transition: background-color 0.3s, color 0.3s;
         }
+
         nav {
-            background-color: var(--dark-color);
-            padding: 0.5rem;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
+            background: rgba(var(--nav-bg-rgb), 0.8);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem;
             z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         nav ul {
-            list-style-type: none;
-            padding: 0;
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
         }
-        nav ul li {
-            margin: 0.5rem 1rem;
-        }
-        nav ul li a {
-            color: var(--light-color);
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        nav ul li a:hover {
-            color: var(--main-color);
-        }
-        main {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 20px auto 60px;
-            background-color: var(--dark-color);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(var(--primary-rgb), 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover .nav-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-link:hover .nav-text {
+            transform: translateX(2px);
+        }
+
+        /* Añade estas variables en tu :root */
+        :root {
+            --nav-bg-rgb: 26, 26, 26;
+            --primary-rgb: 238, 198, 99;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10%;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn.primary {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .neon-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .neon-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .neon-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            background: var(--primary);
+            border-radius: 50%;
+            filter: blur(30px);
+            animation: neonPulse 2s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes neonPulse {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+        }
+
+        .discord-icon {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 120px 5% 40px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .neon-container {
+                width: 300px;
+                height: 300px;
+                margin-top: 2rem;
+            }
+
+            .button-group {
+                justify-content: center;
+            }
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            background: var(--secondary-bg);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(var(--primary-rgb), 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1.5rem;
+            padding: 1rem;
+            background: rgba(var(--primary-rgb), 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--primary);
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-description {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+        }
+
+        .feature-list li {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-list li:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--secondary-bg);
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 80px auto 1rem;
+            padding: 0 1rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 30px;
+            background: var(--search-bg);
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.3);
+            border-color: var(--primary);
+        }
+
+        .search-highlight {
+            background-color: rgba(var(--primary-rgb), 0.2);
+            border-radius: 4px;
+            padding: 0 2px;
+        }
+
+        .neon-image-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+        }
+
+        .neon-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
             position: relative;
             z-index: 1;
         }
-        h1, h2, h3 {
-            font-family: 'Permanent Marker', cursive;
-            color: var(--main-color);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+        .neon-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border-radius: 50%;
+            background: var(--primary);
+            filter: blur(20px);
+            opacity: 0.5;
+            animation: neonPulse 2s ease-in-out infinite;
+            z-index: 0;
         }
-        footer {
-            background-color: var(--dark-color);
-            color: var(--light-color);
+
+        @keyframes neonPulse {
+            0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+            100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Estilo personalizado para la barra de desplazamiento */
+        ::-webkit-scrollbar {
+            width: 8px; /* Ancho de la barra */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05); /* Fondo del track */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary); /* Color de la barra usando el color primario */
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(
+                45deg,
+                var(--primary),
+                rgba(238, 198, 99, 0.8)
+            );
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        /* Para Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) rgba(255, 255, 255, 0.05);
+        }
+
+        /* Asegúrate de que el scroll sea suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .footer {
+            background: var(--secondary-bg);
+            padding: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--primary),
+                transparent
+            );
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(var(--primary-rgb), 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon {
+            width: 20px;
+            height: 20px;
+            fill: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px) rotate(5deg);
+            background: var(--primary);
+            box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.3);
+        }
+
+        .social-link:hover .social-icon {
+            fill: var(--bg);
+            transform: scale(1.1);
+        }
+
+        .copyright {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 0.9rem;
             text-align: center;
-            padding: 1rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
         }
-        .btn {
-            display: inline-block;
-            background-color: var(--main-color);
-            color: var(--dark-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+
+        @media (max-width: 768px) {
+            .footer-content {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Añade estas clases para hacer las animaciones más suaves */
+        [data-aos] {
+            pointer-events: none;
+        }
+
+        [data-aos].aos-animate {
+            pointer-events: auto;
+        }
+
+        /* Efecto de parallax suave para el fondo */
+        .hero {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Animación de desvanecimiento para las cards */
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(var(--primary-rgb), 0.2);
+        }
+
+        /* Efecto de scroll suave para toda la página */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animación para elementos que entran en viewport */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .legal-section {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .legal-title {
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .legal-content {
+            color: var(--text);
+            line-height: 1.8;
+        }
+
+        .legal-intro {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(var(--primary-rgb), 0.05);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .legal-group {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg);
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .legal-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .legal-group h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .legal-group ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .legal-group li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .legal-group li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: -1.5rem;
             font-weight: bold;
         }
-        .btn:hover {
-            background-color: #e0cfa2;
-            transform: translateY(-2px);
+
+        @media (max-width: 768px) {
+            .legal-section {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .legal-title {
+                font-size: 2rem;
+            }
+
+            .legal-group {
+                padding: 1rem;
+            }
         }
-        .slogan {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 2.5em;
-            text-align: center;
-            margin: 40px 0 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+
+        /* Glowing text effect */
+        .glowing-text {
+            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.8),
+                             0 0 30px rgba(var(--primary-rgb), 0.6);
+            }
+        }
+
+        /* Floating animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Pulse effect for buttons */
+        .pulse-effect {
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
-        .bot-image-container {
-            width: 220px;
-            height: 220px;
-            margin: 0 auto 40px;
-            position: relative;
+
+        /* Hover effect for secondary button */
+        .hover-effect {
+            transition: all 0.3s ease;
         }
+
+        .hover-effect:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
         .bot-image {
-            width: 210px;
-            height: 210px;
-            border-radius: 50%;
-            object-fit: cover;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 2;
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            filter: drop-shadow(0 0 20px rgba(var(--primary-rgb), 0.3));
+            animation: floatBot 6s ease-in-out infinite;
         }
-        .image-frame {
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
+
+        @keyframes floatBot {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+            75% {
+                transform: translateY(15px) rotate(-2deg);
+            }
+        }
+
+        .neon-glow {
             position: absolute;
             top: 0;
             left: 0;
-            border: 4px solid var(--main-color);
-            box-shadow: 0 0 15px rgba(218, 165, 32, 0.5);
-            animation: rotate 10s linear infinite, glow 2s ease-in-out infinite alternate;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, 
+                rgba(var(--primary-rgb), 0.2) 0%,
+                rgba(var(--primary-rgb), 0.1) 40%,
+                rgba(var(--primary-rgb), 0) 70%
+            );
+            animation: pulseGlow 2s ease-in-out infinite;
         }
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes glow {
-            0% { box-shadow: 0 0 15px rgba(218, 165, 32, 0.5); }
-            100% { box-shadow: 0 0 30px rgba(218, 165, 32, 0.8); }
-        }
-        .content-section {
-            text-align: center;
-        }
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        .feature {
-            flex-basis: calc(33.333% - 20px);
-            padding: 20px;
-            background-color: rgba(218, 165, 32, 0.1);
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-        }
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-        .snowflake {
-            color: #fff;
-            font-size: 1em;
-            font-family: Arial;
-            text-shadow: 0 0 1px #000;
-            position: fixed;
-            top: -10%;
-            z-index: 9999;
-            user-select: none;
-            cursor: default;
-            animation-name: snowflakes-fall, snowflakes-shake;
-            animation-duration: 10s, 3s;
-            animation-timing-function: linear, ease-in-out;
-            animation-iteration-count: infinite, infinite;
-            animation-play-state: running, running;
-        }
-        @keyframes snowflakes-fall {
-            0% { top: -10%; }
-            100% { top: 100%; }
-        }
-        @keyframes snowflakes-shake {
-            0% { transform: translateX(0px); }
-            50% { transform: translateX(80px); }
-            100% { transform: translateX(0px); }
-        }
-        @media (max-width: 768px) {
-            .feature {
-                flex-basis: 100%;
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
             }
-            .slogan {
-                font-size: 2em;
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        /* Animaciones para las cards */
+        .feature-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(var(--primary-rgb), 0.2);
+        }
+
+        .feature-icon {
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(180deg);
+        }
+
+        /* Efecto de brillo en hover */
+        .feature-title {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-title::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(var(--primary-rgb), 0.2),
+                transparent
+            );
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            to {
+                left: 100%;
+            }
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .floating-text {
+            font-size: 1.5rem;
+            color: var(--text);
+            opacity: 0.9;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Suavizado de la animación del bot */
+        .bot-image {
+            width: 100%;
+            height: auto;
+            max-width: 400px;
+            filter: drop-shadow(0 0 15px rgba(var(--primary-rgb), 0.2));
+            animation: gentleFloatBot 5s ease-in-out infinite;
+        }
+
+        @keyframes gentleFloatBot {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(1deg);
+            }
+        }
+
+        /* Suavizado de animaciones en las cards */
+        .feature-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(90deg);
+            transition: transform 0.6s ease;
+        }
+
+        .legal-group {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+        }
+
+        .legal-group.aos-animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .legal-title {
+            animation: slideDown 0.8s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .legal-intro {
+            animation: slideRight 0.8s ease-out forwards;
+        }
+
+        @keyframes slideRight {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Añade estas clases para el scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            scroll-padding-top: 80px; /* Para considerar la navbar fija */
+            overflow-y: scroll; /* Asegura que siempre haya una barra de scroll */
+            -webkit-overflow-scrolling: touch; /* Para iOS */
+        }
+
+        /* Personalización de la barra de scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(var(--primary-rgb), 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(
+                45deg,
+                var(--primary),
+                rgba(238, 198, 99, 0.8)
+            );
+        }
+
+        /* Animación suave para elementos al hacer scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Añade estas animaciones y efectos */
+        /* Efecto de brillo para cards y botones */
+        .feature-card, .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before, .btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(var(--primary-rgb), 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Efecto flotante mejorado */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(1deg); }
+            50% { transform: translateY(0px) rotate(0deg); }
+            75% { transform: translateY(10px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        /* Transiciones suaves para todos los elementos */
+        * {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Efecto de profundidad para cards */
+        .feature-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 
+                0 20px 40px rgba(var(--primary-rgb), 0.2),
+                0 0 20px rgba(var(--primary-rgb), 0.1);
+        }
+
+        /* Efecto de ondulación para botones */
+        .btn {
+            position: relative;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease-out, height 0.6s ease-out;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .btn:active::after {
+            width: 200%;
+            height: 200%;
+            opacity: 0;
+        }
+
+        /* Efecto de desplazamiento suave mejorado */
+        .smooth-scroll {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Animación de entrada para elementos */
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Efecto de parallax suave */
+        .parallax {
+            transform: translateZ(0);
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+
+        /* Efecto de brillo para textos importantes */
+        .glow-text {
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.5);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(var(--primary-rgb), 0.8),
+                             0 0 30px rgba(var(--primary-rgb), 0.6);
             }
         }
     </style>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMjFDMTEuNCAyMSAxMC44MyAyMC44MyAxMC4zNyAyMC41TDQuMjcgMTUuOTZDMS42OCAxMy45MSAwIDExLjIxIDAgOC41QzAgNS44IDIuMiAzLjYgNC45IDMuNkM3LjEgMy42IDguOTQgNC45IDEwIDYuODdDMTEuMDYgNC45IDEyLjkgMy42IDE1LjEgMy42QzE3LjggMy42IDIwIDUuOCAyMCA4LjVDMjAgMTEuMjEgMTguMzIgMTMuOTEgMTUuNzMgMTUuOTZMOS42MyAyMC41QzkuMTcgMjAuODMgOC42IDIxIDggMjFIMTJaIiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==">
 </head>
 <body>
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">🥒</div><div class="snowflake">🥒</div>
-        <div class="snowflake">🥒</div><div class="snowflake">🥒</div>
-        <div class="snowflake">🥒</div><div class="snowflake">🥒</div>
-        <div class="snowflake">🥒</div><div class="snowflake">🥒</div>
-        <div class="snowflake">🥒</div><div class="snowflake">🥒</div>
-    </div>
-    <header>
-        <h1>Maid Bot</h1>
-    </header>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌓
+    </button>
+
     <nav>
         <ul>
-            <li><a href="#home" onclick="showPage('home')">Home</a></li>
-            <li><a href="#features" onclick="showPage('features')">Features</a></li>
-            <li><a href="#terms" onclick="showPage('terms')">Terms</a></li>
-            <li><a href="#privacy" onclick="showPage('privacy')">Privacy</a></li>
+            <li>
+                <a href="#" onclick="showPage('home')" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M12 2L2 12h3v8h6v-6h2v6h6v-8h3L12 2z"/>
+                    </svg>
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('features')" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    <span class="nav-text">Features</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('terms')" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/>
+                    </svg>
+                    <span class="nav-text">Terms</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('privacy')" class="nav-link">
+                    <svg class="nav-icon" viewBox="0 0 24 24">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                    </svg>
+                    <span class="nav-text">Privacy</span>
+                </a>
+            </li>
         </ul>
     </nav>
-    <main>
-        <section id="home" class="content-section">
-            <div class="slogan">Add. Execute. Enjoy.</div>
-            <div class="bot-image-container">
-                <div class="image-frame"></div>
-                <img src="https://i.postimg.cc/522h1Z6x/enhanced-image.png" alt="Maid Bot" class="bot-image" />
-            </div>
-            <h2>Free real porn, hentai and more.</h2>
-            <p>It basically submits adult content from different categories. Here we do not exclude anyone and there is something for everyone.</p>
-            <a href="https://discord.com/oauth2/authorize?client_id=1112902541953470524" target="_blank" rel="noopener noreferrer" class="btn">ADD NOW!</a>
-        </section>
-        <section id="features" class="content-section" style="display: none;">
-            <h2>Maid Features</h2>
-            <div class="features">
-                <div class="feature">
-                    <h3>Real Porn</h3>
-                    <p>Maid has millions of videos, images and GIFs of real porn. You can't possibly finish the content because it is updated daily.</p>
-                </div>
-                <div class="feature">
-                    <h3>Hentai</h3>
-                    <p>But the otaku are not forgotten either, Maid also has millions of hentai content, including videos. owo</p>
-                </div>
-                <div class="feature">
-                    <h3>Buttons</h3>
-                    <p>Tired of having to run commands all the time? With Maid that's over, press a simple button and discover all the wonderful and spicy content that awaits your little friend.</p>
+
+    <div class="search-container">
+        <input type="text" id="searchBar" class="search-bar" placeholder="Search...">
+    </div>
+
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="hero-content animate__animated animate__fadeInLeft">
+                <h1>Free Adult Content</h1>
+                <p class="floating-text">Discover unlimited pleasure at your fingertips</p>
+                <div class="button-group" data-aos="fade-up" data-aos-delay="200">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1112902541953470524" class="btn primary pulse-effect">
+                        <svg class="discord-icon" viewBox="0 0 24 24">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.39-.557.71-1.153.952-1.781a.075.075 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+                        </svg>
+                        Add to your server
+                    </a>
+                    <a href="https://dsc.gg/maidboat" class="btn secondary hover-effect">Support server</a>
                 </div>
             </div>
+            <div class="hero-image animate__animated animate__fadeInRight">
+                <div class="neon-container floating">
+                    <div class="neon-glow"></div>
+                    <img src="https://media.discordapp.net/attachments/945443023850971210/1311579398041763891/75fb94cba21fb0b4cb33fd18f2376322.png?ex=67495f00&is=67480d80&hm=d4a6e332e6b3f0bb94be149ad9a7c21967cceb7927181ca3b18d27bbb51eb0fb&=&format=webp&quality=lossless&width=468&height=468" alt="Maid Bot" class="bot-image">
+                </div>
+            </div>
         </section>
-        <section id="terms" class="content-section" style="display: none;">
-            <h2>Terms of Service</h2>
-            <p>Welcome to Maid Bot. By using Maid Bot, you agree to be bound by the following terms and conditions. If you do not agree to any of these terms, please refrain from using the Bot.</p>
-            <ul>
-                <li>Use of the Bot: The purpose of Maid Bot is to display links to images, GIFS and videos from different Websites, through preset slash (/) commands. By using the Bot, you acknowledge that any actions taken using these commands are your sole responsibility.
-                    Liability: Maid Bot assumes no liability for any direct or indirect damage caused by the use of the Bot. Users are fully responsible for their interaction with the Bot and understand that the content displayed may be directed to an adult audience. It is recommended to use the Bot in an appropriate manner and to abide by the corresponding rules and regulations.
-                    Privacy: Maid Bot does not collect or store personal information about users. We do not share the servers on which the Bot is located, nor do we collect any data related to them. However, you should be aware that the NSFW Websites from which the content is sourced may have their own privacy policies.
-                    Intellectual Property: All intellectual property rights to the content shared by Maid Bot belong to the corresponding NSFW Websites. The Bot simply displays the links and content of images, GIFs and videos obtained from the designated NSFW Websites, and has no control over such content.
-                    Changes to Terms: We reserve the right to make changes to the Maid Bot terms and conditions at any time. We encourage you to regularly review these terms of service to be aware of any updates.
-                    </li>
-            </ul>
-            <p>​By using Maid Bot, you agree to abide by these terms of service. If you do not agree with any of them, please refrain from using the Bot. We appreciate your understanding and hope you enjoy! the content shared through Maid Bot.
-            </p>
+    </div>
+
+    <div id="features" class="page">
+        <section class="features">
+            <div class="features-grid">
+                <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+                    <div class="feature-icon rotating">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM9 8h2v8H9zm4 0h2v8h-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Real Porn</h3>
+                    <p class="feature-description">Millions of videos and images updated daily.</p>
+                    <ul class="feature-list">
+                        <li>✦ High quality HD content</li>
+                        <li>✦ Daily updates</li>
+                        <li>✦ Various categories</li>
+                        <li>✦ Unlimited downloads</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="flip-up" data-aos-delay="200">
+                    <div class="feature-icon rotating">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Hentai Premium</h3>
+                    <p class="feature-description">Wide collection of anime content for genre lovers.</p>
+                    <ul class="feature-list">
+                        <li>✦ Exclusive manga and doujinshi</li>
+                        <li>✦ Uncensored content</li>
+                        <li>✦ Recognized artists</li>
+                        <li>✦ Official translations</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card" data-aos="flip-right" data-aos-delay="300">
+                    <div class="feature-icon rotating">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2v6h-2zm0-4h2v2h-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Easy to Use</h3>
+                    <p class="feature-description">Intuitive interface with buttons, no complex commands needed.</p>
+                    <ul class="feature-list">
+                        <li>✦ Simplified commands</li>
+                        <li>✦ Intuitive control panel</li>
+                        <li>✦ Advanced search</li>
+                        <li>✦ 24/7 support</li>
+                    </ul>
+                </div>
+            </div>
         </section>
-        <section id="privacy" class="content-section" style="display: none;">
-            <h2>Privacy Policy</h2>
-            <p>We appreciate your interest in Maid, a Discord Bot that shares content from NSFW Websites. This Privacy Policy describes how we collect, use and protect the personal information of users.
-                ​</p>
-            <ul>
-                <li>Information Collected: Maid does not collect or store any personal information from users. The Bot does not require users to provide additional data beyond the pre-set slash (/) commands to access available options.
-                    Use of Information: We do not use any personal information from users, as the Bot does not collect or store such information. We do not share the servers on which the Bot resides nor do we collect any data related to them.
-                    Intellectual Property Rights: All intellectual property rights to the content shared by the Bot belong to the relevant NSFW Websites. The Bot simply displays the links and content of images, gifs and videos from the designated NSFW Websites.
-                    Content and liability: The Maid Bot has no control over the content shared in the NSFW Websites and is not responsible for such content. Users should be aware that the content displayed may be intended for adults and should use the Bot in accordance with applicable rules and regulations.
-                    Limitation of Liability: The use of Maid Bot is at the users' own risk. We are not liable for any direct or indirect damages caused by the use of the Bot, including but not limited to loss of data, service interruptions or any other inconvenience.
-                    Changes to Terms: We reserve the right to make changes to the Maid Bot terms and conditions at any time. It is the responsibility of users to periodically review this Privacy Policy to be aware of any updates.
-                    Contacting Us: If you have any questions, questions or concerns regarding the operation of the Bot or the privacy policy, we invite you to join our support server and share your concerns there. We will be happy to help you in any way we can.
-                    Contacting Us: If you have any questions, questions or concerns regarding the operation of the Bot or the privacy policy, we invite you to join our support server and share your concerns there. We will be happy to help you in any way we can.</li>
-            </ul>
-            <p>Remember that this Privacy Policy applies specifically to the Maid Bot and not to other services or platforms used on Discord. We encourage you to read and understand the privacy policies applicable to Discord and other services you may use in conjunction with Maid Bot.
-                Thank you! for using Maid Bot and enjoying the content shared through it. - Alejandro & The Team.</p>
+    </div>
+
+    <div id="terms" class="page">
+        <section class="legal-section" data-aos="fade-up">
+            <h2 class="legal-title" data-aos="fade-down">Terms of Service</h2>
+            <div class="legal-content">
+                <div class="legal-intro" data-aos="fade-right" data-aos-delay="100">
+                    <p>Welcome to Maid Bot. By using our services, you agree to the following terms and conditions.</p>
+                </div>
+                
+                <div class="legal-group" data-aos="fade-up" data-aos-delay="200">
+                    <h3>1. Use of the Service</h3>
+                    <p>Maid Bot is a service designed to display multimedia content through pre-set commands. By using the Bot, you:</p>
+                    <ul>
+                        <li>Accept responsibility for all activities performed under your use</li>
+                        <li>Commit to using the service in accordance with applicable laws</li>
+                        <li>Understand that the content is directed to an adult audience</li>
+                    </ul>
+                </div>
+
+                <div class="legal-group" data-aos="fade-up" data-aos-delay="300">
+                    <h3>2. Liability</h3>
+                    <p>Maid Bot acts as an intermediary and does not assume responsibility for:</p>
+                    <ul>
+                        <li>Direct or indirect damages resulting from the use of the service</li>
+                        <li>Content provided by third-party websites</li>
+                        <li>Service interruptions</li>
+                    </ul>
+                </div>
+
+                <div class="legal-group" data-aos="fade-up" data-aos-delay="400">
+                    <h3>3. Intellectual Property</h3>
+                    <p>All content displayed through Maid Bot belongs to its respective owners. The Bot:</p>
+                    <ul>
+                        <li>Acts as a content aggregator</li>
+                        <li>Does not claim ownership over the content displayed</li>
+                        <li>Respects the corresponding copyrights</li>
+                    </ul>
+                </div>
+            </div>
         </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 Maid Bot. All rights reserved.</p>
+    </div>
+
+    <div id="privacy" class="page">
+        <section class="legal-section" data-aos="fade-up">
+            <h2 class="legal-title" data-aos="fade-down">Privacy Policy</h2>
+            <div class="legal-content">
+                <div class="legal-intro" data-aos="fade-right" data-aos-delay="100">
+                    <p>Your privacy is important to us. This policy describes how we handle your information in Maid Bot.</p>
+                </div>
+
+                <div class="legal-group" data-aos="fade-up" data-aos-delay="200">
+                    <h3>1. Data Collection</h3>
+                    <p>Maid Bot is committed to protecting your privacy:</p>
+                    <ul>
+                        <li>We do not collect personally identifiable information</li>
+                        <li>We do not store usage histories</li>
+                        <li>We do not share data with third parties</li>
+                    </ul>
+                </div>
+
+                <div class="legal-group" data-aos="fade-up" data-aos-delay="300">
+                    <h3>2. Use of the Service</h3>
+                    <p>By using Maid Bot, you must know that:</p>
+                    <ul>
+                        <li>The service is completely anonymous</li>
+                        <li>We do not require registration or personal information</li>
+                        <li>We do not use cookies or trackers</li>
+                    </ul>
+                </div>
+
+                <div class="legal-group" data-aos="fade-up" data-aos-delay="400">
+                    <h3>3. Contact</h3>
+                    <p>For any inquiries about privacy:</p>
+                    <ul>
+                        <li>Visit our support server</li>
+                        <li>Contact our moderation team</li>
+                        <li>Consult our online documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="https://dsc.gg/maidboat" class="social-link" title="Join our Discord">
+                    <svg class="social-icon" viewBox="0 0 24 24">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.39-.557.71-1.153.952-1.781a.075.075 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-info">
+                <p class="copyright">© 2024 Maid Bot. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
+
     <script>
-        function showPage(pageId) {
-            const pages = ['home', 'features', 'terms', 'privacy'];
-            pages.forEach(page => {
-                document.getElementById(page).style.display = 'none';
-            });
-            document.getElementById(pageId).style.display = 'block';
-            
-            history.pushState(null, '', `#${pageId}`);
+        // Cambio de tema
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
         }
 
-        window.onpopstate = function() {
-            const hash = window.location.hash.substring(1);
-            if (hash && ['home', 'features', 'terms', 'privacy'].includes(hash)) {
-                showPage(hash);
-            } else {
-                showPage('home');
+        // Cargar tema guardado
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Navegación entre páginas
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // Búsqueda
+        const searchBar = document.getElementById('searchBar');
+        let timeoutId = null;
+
+        searchBar.addEventListener('input', (e) => {
+            // Limpiar el timeout anterior
+            if (timeoutId) {
+                clearTimeout(timeoutId);
             }
+
+            // Establecer un nuevo timeout
+            timeoutId = setTimeout(() => {
+                const searchTerm = e.target.value.trim().toLowerCase();
+                
+                // Remover resaltados anteriores
+                document.querySelectorAll('.search-highlight').forEach(el => {
+                    const parent = el.parentNode;
+                    parent.replaceChild(document.createTextNode(el.textContent), el);
+                });
+
+                if (searchTerm.length > 0) {
+                    // Buscar solo en elementos específicos
+                    const searchableElements = document.querySelectorAll('.feature-title, .feature-description, .feature-list li');
+                    
+                    searchableElements.forEach(element => {
+                        const text = element.textContent;
+                        const regex = new RegExp(`(${searchTerm})`, 'gi');
+                        
+                        if (regex.test(text)) {
+                            element.innerHTML = text.replace(regex, '<span class="search-highlight">$1</span>');
+                        }
+                    });
+                }
+            }, 300); // Esperar 300ms después de que el usuario deje de escribir
+        });
+
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: false,
+            mirror: true,
+            offset: 100
+        });
+
+        // Animación suave del scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: false,
+            mirror: true
+        });
+
+        // Add scroll reveal animations
+        ScrollReveal().reveal('.feature-card', {
+            delay: 200,
+            distance: '50px',
+            origin: 'bottom',
+            interval: 100
+        });
+
+        // Add intersection observer for additional animations
+        const animateOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        });
+
+        document.querySelectorAll('.legal-group').forEach((element) => {
+            animateOnScroll.observe(element);
+        });
+
+        // Añade este código JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Función para scroll suave en todos los enlaces internos
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Animación al hacer scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Aplicar el observer a todos los elementos con la clase animate-on-scroll
+            document.querySelectorAll('.animate-on-scroll').forEach((element) => {
+                observer.observe(element);
+            });
+
+            // Función para scroll suave
+            let lastScrollTop = 0;
+            let ticking = false;
+
+            window.addEventListener('scroll', function() {
+                let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        if (currentScroll > lastScrollTop) {
+                            // Scrolling down
+                            document.body.style.transform = 'translateY(-5px)';
+                        } else {
+                            // Scrolling up
+                            document.body.style.transform = 'translateY(5px)';
+                        }
+                        
+                        setTimeout(() => {
+                            document.body.style.transform = 'translateY(0)';
+                        }, 300);
+                        
+                        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+                        ticking = false;
+                    });
+                    
+                    ticking = true;
+                }
+            }, { passive: true });
+        });
+
+        // Añade este código JavaScript para el efecto parallax suave
+        document.addEventListener('mousemove', function(e) {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            const mouseX = e.clientX / window.innerWidth - 0.5;
+            const mouseY = e.clientY / window.innerHeight - 0.5;
+
+            parallaxElements.forEach(element => {
+                const speed = element.getAttribute('data-speed') || 20;
+                const x = mouseX * speed;
+                const y = mouseY * speed;
+                element.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        });
+
+        // Mejorar el efecto de scroll
+        let scrollTimeout;
+        document.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            document.body.classList.add('is-scrolling');
+            
+            scrollTimeout = setTimeout(() => {
+                document.body.classList.remove('is-scrolling');
+            }, 150);
+        }, { passive: true });
+
+        // Añadir clases de animación a los elementos cuando entran en viewport
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        window.onload = function() {
-            const hash = window.location.hash.substring(1);
-            if (hash && ['home', 'features', 'terms', 'privacy'].includes(hash)) {
-                showPage(hash);
-            } else {
-                showPage('home');
-            }
-        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .btn, .legal-group').forEach(el => {
+            observer.observe(el);
+        });
     </script>
 </body>
 </html>
